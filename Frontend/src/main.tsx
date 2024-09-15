@@ -9,8 +9,9 @@ import { NotFound } from './components/NotFound.tsx';
 import './css/index.css'
 import { ClerkProvider } from '@clerk/clerk-react';
 
-const queryClient = new QueryClient();
 
+
+const queryClient = new QueryClient();
 
 const router = createRouter({
   routeTree,
