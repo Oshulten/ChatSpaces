@@ -21,6 +21,19 @@ public class ChatSpaceController(ChatSpaceDbContext context, ClerkApiClient cler
         return Ok(x);
     }
 
+    [HttpPost("create-user")]
+    public async Task<IActionResult> CreateUser(string username)
+    {
+        Clerk.Net.Client.Users.UsersPostRequestBody requestBody = new()
+        {
+            Password = "fjdklsöaj88Gwag",
+            Username = username,
+        };
+        await clerkClient.Users.PostAsync(requestBody);
+        return Ok();
+    }
+
+
     [HttpPost("ensure-user-exists")]
     public async Task<IActionResult> EnsureUserExists()
     {
@@ -40,6 +53,13 @@ public class ChatSpaceController(ChatSpaceDbContext context, ClerkApiClient cler
             context.CreateUser(user);
         }
 
+        return Ok();
+    }
+
+    [HttpPost("seed")]
+    public async Task<IActionResult> Seed()
+    {
+        await context.Seed(3, 3, 25, clerkClient);
         return Ok();
     }
     // private static DtoUser ToDtoUser(User user) =>
