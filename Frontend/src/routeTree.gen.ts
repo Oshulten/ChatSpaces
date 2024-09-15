@@ -11,12 +11,18 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as HomeImport } from './routes/home'
+import { Route as LoginImport } from './routes/login'
+import { Route as DashboardImport } from './routes/dashboard'
 
 // Create/Update Routes
 
-const HomeRoute = HomeImport.update({
-  path: '/home',
+const LoginRoute = LoginImport.update({
+  path: '/login',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const DashboardRoute = DashboardImport.update({
+  path: '/dashboard',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -24,11 +30,18 @@ const HomeRoute = HomeImport.update({
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/home': {
-      id: '/home'
-      path: '/home'
-      fullPath: '/home'
-      preLoaderRoute: typeof HomeImport
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardImport
+      parentRoute: typeof rootRoute
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginImport
       parentRoute: typeof rootRoute
     }
   }
@@ -36,7 +49,7 @@ declare module '@tanstack/react-router' {
 
 // Create and export the route tree
 
-export const routeTree = rootRoute.addChildren({ HomeRoute })
+export const routeTree = rootRoute.addChildren({ DashboardRoute, LoginRoute })
 
 /* prettier-ignore-end */
 
@@ -46,11 +59,15 @@ export const routeTree = rootRoute.addChildren({ HomeRoute })
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/home"
+        "/dashboard",
+        "/login"
       ]
     },
-    "/home": {
-      "filePath": "home.tsx"
+    "/dashboard": {
+      "filePath": "dashboard.tsx"
+    },
+    "/login": {
+      "filePath": "login.tsx"
     }
   }
 }
