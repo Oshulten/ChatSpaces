@@ -114,7 +114,7 @@ public class ChatSpaceDbContext(DbContextOptions options) : DbContext(options)
         return messages;
     }
 
-    public async Task Seed(int numberOfUsers, int numberOfSpaces, int numberOfMessages, ClerkApiClient clerkClient)
+    public void Seed(int numberOfUsers, int numberOfSpaces, int numberOfMessages)
     {
         Clear();
 

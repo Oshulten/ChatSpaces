@@ -34,8 +34,8 @@ public class ChatSpaceController(ChatSpaceDbContext context, ClerkApiClient cler
     }
 
 
-    [HttpPost("ensure-user-exists")]
-    public async Task<IActionResult> EnsureUserExists()
+    [HttpPost("ensure-users-exists")]
+    public async Task<IActionResult> EnsureUsersExists()
     {
         var clerkUsers = await clerkClient.Users.GetAsync();
 
@@ -57,9 +57,9 @@ public class ChatSpaceController(ChatSpaceDbContext context, ClerkApiClient cler
     }
 
     [HttpPost("seed")]
-    public async Task<IActionResult> Seed()
+    public IActionResult Seed()
     {
-        await context.Seed(3, 3, 25, clerkClient);
+        context.Seed(3, 3, 25);
         return Ok();
     }
     // private static DtoUser ToDtoUser(User user) =>
