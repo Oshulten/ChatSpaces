@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Backend.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(ChatSpaceDbContext))]
     [Migration("20240915164956_InitialCreate")]
     partial class InitialCreate
     {

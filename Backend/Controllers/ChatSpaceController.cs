@@ -10,7 +10,7 @@ namespace Backend.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class ChatspaceController(ApplicationDbContext context) : ControllerBase
+public class ChatSpaceController(ChatSpaceDbContext context) : ControllerBase
 {
     // private static DtoUser ToDtoUser(User user) =>
     //     new(user.Guid, user.Username, user.JoinedAt, user.Admin);
