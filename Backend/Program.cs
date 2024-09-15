@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Backend.Database;
 using Backend.Hubs;
+using Clerk.Net.DependencyInjection;
 
 const string applicationTitle = "ChatSpaces";
 const string version = "v1";
@@ -12,6 +13,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddUserSecrets<Program>();
 builder.Services.AddDbContext<ChatSpaceDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddClerkApiClient(config =>
+{
+    config.SecretKey = builder.Configuration["Clerk"]!;
+});
 
 builder.Services.AddSignalR();
 builder.Services.AddControllers();

@@ -10,7 +10,6 @@ public class DtoUser(string id, string username, List<Guid> spaceGuids, List<Gui
 
     public List<Guid> MessageGuids { get; set; } = messageGuids;
 
-
     public static explicit operator DtoUser(User user) =>
         new(
             user.Id,
