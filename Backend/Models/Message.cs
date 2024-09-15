@@ -1,4 +1,5 @@
 using Backend.Database;
+using Backend.Dto;
 
 namespace Backend.Models;
 
