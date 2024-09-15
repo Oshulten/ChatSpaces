@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Backend.Database;
 using Backend.Hubs;
 using Clerk.Net.DependencyInjection;
+using Microsoft.AspNetCore.Authentication.BearerToken;
 
 const string applicationTitle = "ChatSpaces";
 const string version = "v1";
@@ -50,16 +51,16 @@ app.UseCors(options =>
     options.AllowAnyHeader()
       .AllowAnyMethod()
       .AllowCredentials()
-      .SetIsOriginAllowed(origin => true);
+      .SetIsOriginAllowed(origin => origin == "http://localhost:5173");
 });
 
 app.UseHttpsRedirection();
 
-// app.UseAuthentication();
-// app.UseAuthorization();
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
-app.MapHub<Hub>("/space");
+app.MapHub<Hub>("/hub");
 
 app.Run();
 public partial class Program { }

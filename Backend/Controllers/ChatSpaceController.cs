@@ -4,14 +4,44 @@ using System.Linq;
 using System.Threading.Tasks;
 using Backend.Database;
 using Backend.Models;
+using Clerk.Net.Client;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class ChatSpaceController(ChatSpaceDbContext context) : ControllerBase
+public class ChatSpaceController(ChatSpaceDbContext context, ClerkApiClient clerkClient) : ControllerBase
 {
+    [HttpGet]
+    public async Task<IActionResult> Login()
+    {
+        var x = await clerkClient.Users.GetAsync();
+        Console.WriteLine(x);
+        return Ok(x);
+    }
+
+    [HttpPost("ensure-user-exists")]
+    public async Task<IActionResult> EnsureUserExists()
+    {
+        var clerkUsers = await clerkClient.Users.GetAsync();
+
+        if (clerkUsers is null) return Ok();
+
+        foreach (var clerkUser in clerkUsers)
+        {
+            if (clerkUser.Id is null || clerkUser.Username is null)
+            {
+                continue;
+            }
+
+            User user = new(clerkUser.Id, clerkUser.Username);
+
+            context.CreateUser(user);
+        }
+
+        return Ok();
+    }
     // private static DtoUser ToDtoUser(User user) =>
     //     new(user.Guid, user.Username, user.JoinedAt, user.Admin);
 
