@@ -4,13 +4,13 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Backend.Database;
 using Backend.Hubs;
 
-const string applicationTitle = "TemplateApi";
+const string applicationTitle = "ChatSpaces";
 const string version = "v1";
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Configuration.AddUserSecrets<Program>();
-builder.Services.AddDbContext<TemplateDatabaseContext>(options =>
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddSignalR();
@@ -53,7 +53,7 @@ app.UseHttpsRedirection();
 // app.UseAuthorization();
 
 app.MapControllers();
-app.MapHub<NotificationHub>("/notifications");
+app.MapHub<Hub>("/space");
 
 app.Run();
 public partial class Program { }
