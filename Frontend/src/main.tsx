@@ -11,6 +11,7 @@ import { ClerkProvider } from '@clerk/clerk-react';
 
 const queryClient = new QueryClient();
 
+
 const router = createRouter({
   routeTree,
   context: {
@@ -28,6 +29,7 @@ declare module '@tanstack/react-router' {
   }
 }
 
+<<<<<<< HEAD
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
@@ -36,4 +38,15 @@ createRoot(document.getElementById('root')!).render(
       </ClerkProvider>
     </QueryClientProvider>
   </StrictMode>,
+=======
+
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
+    <QueryClientProvider client={queryClient}>
+      <ClerkProvider publishableKey={import.meta.env.VITE_CLERK_PUBLISHABLE_KEY} afterSignOutUrl="/">
+        <RouterProvider router={router} />
+      </ClerkProvider>
+    </QueryClientProvider>
+  </StrictMode >,
+>>>>>>> cf35211b14c5459f186e6e54c6dc656c08339ea9
 )
